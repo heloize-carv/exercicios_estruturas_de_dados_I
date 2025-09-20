@@ -10,12 +10,12 @@ int main() {
     int pontuacao_total = 0;
     int *ponteiro_moeda;
 
-    // O ponteiro começa no início do vetor
+    // O ponteiro comeï¿½a no inï¿½cio do vetor
     for (ponteiro_moeda = moedas_coletadas; ponteiro_moeda < moedas_coletadas + 5; ponteiro_moeda++) {
         pontuacao_total += *ponteiro_moeda; // soma o valor apontado
     }
 
-    printf("Pontuação total do nível: %d\n", pontuacao_total);
+    printf("Pontuaï¿½ï¿½o total do nï¿½vel: %d\n", pontuacao_total);
 
     return 0;
 }

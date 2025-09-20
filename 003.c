@@ -3,25 +3,27 @@
 
 // O Portal de Teletransporte e as Coordenadas do Jogador
 
-// Função que aplica o power-up de pontuação dupla
-void aplicar_powerup_pontuacao_dupla(int *pontuacao) {
-    *pontuacao = *pontuacao * 2; // altera o valor diretamente na memória
-}
-
 int main() {
     setlocale(LC_ALL, "Portuguese_Brazil");
 
-    // 1. Cria a variável da pontuação e inicializa com 1500
-    int pontuacao_jogador = 1500;
+    // 1. Variável de coordenada
+    float coordenada_x;
 
-    // 2. Imprime a pontuação antes do power-up
-    printf("Pontuação antes do power-up: %d\n", pontuacao_jogador);
+    // 2. Ponteiro para coordenada
+    float *ponteiro_x;
 
-    // 3. Chama a função passando o endereço da variável
-    aplicar_powerup_pontuacao_dupla(&pontuacao_jogador);
+    // 3. Conecta o ponteiro à variável
+    ponteiro_x = &coordenada_x;
 
-    // 4. Imprime a pontuação após o power-up
-    printf("Pontuação após o power-up: %d\n", pontuacao_jogador);
+    // 4. Lê a coordenada do usuário
+    printf("Digite a coordenada X do portal: ");
+    scanf("%f", &coordenada_x);
+
+    // 5. Imprime o valor da coordenada usando o ponteiro
+    printf("Posicao do portal no eixo X: %f\n", *ponteiro_x);
+
+    // 6. Imprime o endereço de memória da coordenada
+    printf("Endereco do portal para teletransporte: %p\n", (void *)ponteiro_x);
 
     return 0;
 }
