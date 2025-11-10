@@ -1,44 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h>
-#include <string.h>
 
 typedef struct {
-    char nome[50];
-    int vida;
-    int ataque;
-} Inimigo;
+    int id;
+    int pontos;
+} Conquista;
 
 int main() {
-    setlocale(LC_ALL, ""); // Para suportar acentuação
-
     FILE *arquivo;
-    Inimigo inimigo, maisForte;
-    int primeiro = 1; // Flag para identificar o primeiro inimigo lido
+    int N, i, total_pontos = 0;
 
-    // Tenta abrir o arquivo para leitura
-    arquivo = fopen("wave_data.txt", "r");
+    // Abre o arquivo em modo leitura e escrita ("r+")
+    arquivo = fopen("player_log.txt", "r+");
     if (arquivo == NULL) {
-        printf("Erro: Arquivo wave_data.txt nao encontrado!\n");
+        printf("Erro: Arquivo player_log.txt nao encontrado!\n");
         return 1;
     }
 
-    // Lê cada inimigo do arquivo até EOF
-    while (fscanf(arquivo, "%s %d %d", inimigo.nome, &inimigo.vida, &inimigo.ataque) != EOF) {
-        if (primeiro) {
-            // Inicializa o mais forte com o primeiro inimigo
-            maisForte = inimigo;
-            primeiro = 0;
-        } else if (inimigo.ataque > maisForte.ataque) {
-            maisForte = inimigo; // Atualiza se encontrar inimigo mais forte
-        }
+    // Lê a quantidade de conquistas
+    fscanf(arquivo, "%d", &N);
+
+    Conquista c;
+
+    // Lê cada conquista e soma os pontos
+    for (i = 0; i < N; i++) {
+        fscanf(arquivo, "%d %d", &c.id, &c.pontos);
+        total_pontos += c.pontos;
     }
 
-    fclose(arquivo);
+    printf("Total de pontos ganhos na sessao: %d\n", total_pontos);
 
-    // Exibe o inimigo com maior ataque
-    printf("Maior Ameaça: %s, Vida: %d, Ataque: %d\n",
-           maisForte.nome, maisForte.vida, maisForte.ataque);
+    // Posiciona o ponteiro no final do arquivo para escrever
+    fseek(arquivo, 0, SEEK_END);
+
+    // Acrescenta a mensagem de sessão concluída
+    fprintf(arquivo, "\n--- SESSION CONCLUDED ---\n");
+
+    fclose(arquivo);
 
     return 0;
 }
